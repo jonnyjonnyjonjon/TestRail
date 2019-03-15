@@ -23,7 +23,9 @@ import time
 ######################################################################################################################
 
 # Details needed to make the API request
-TESTRAIL = APIClient('<TESTRAIL URL GOES HERE>')
+# The TestRail URL is the base URL of your TestRail instance and should include http/https such as
+#  https://example.testrail.io or http://localhost/testrail
+TESTRAIL = APIClient('<YOUR TESTRAIL URL>')
 TESTRAIL.user = '<TESTRAIL EMAIL ADDRESS GOES HERE>'
 TESTRAIL.password = '<TESTRAIL PASSWORD OR API TOKEN GOES HERE>'
 
