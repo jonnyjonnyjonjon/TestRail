@@ -28,13 +28,13 @@ TESTRAIL.user = '<TESTRAIL EMAIL ADDRESS GOES HERE>'
 TESTRAIL.password = '<TESTRAIL PASSWORD OR API TOKEN GOES HERE>'
 
 # Project from which you are retrieving data regarding untested cases
-PROJECT_ID = 19       # Integer ID of target project
+PROJECT_ID = 1       # Integer ID of target project
 
 # Filters to be applied when using 'get_runs' and 'get_plans'
 # Value should be set to None if filter will not be applied
 # offset is not included here since it is handled elsewhere
 # created_before and created_after are handled in the next code block
-FILTERS = { 'suite_id': 29,             # This is REQUIRED if your project is running in multi-suite mode
+FILTERS = { 'suite_id': None,             # This is REQUIRED if your project is running in multi-suite mode
             'created_by': None,         # Integer ID of user
             'is_completed': None,       # 0 for active, 1 for completed
             'limit': None,              # Integer between 1 and 249
