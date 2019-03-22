@@ -76,12 +76,12 @@ def make_api_get_request(uri):
                 raise Exception('Unexpected API Error: %s' % error_string)
 
 
-# Retrieves all test cases from PROJECT_ID
+# Retrieves all test cases from proj_id
 # RETURNS: a tuple: list all case details, list of only case IDs
-def get_all_cases():
-    uri = 'get_cases/' + str(PROJECT_ID)
-    if FILTERS['suite_id']:
-        uri += '&suite_id=' + str(FILTERS['suite_id'])
+def get_all_cases(proj_id, filters):
+    uri = 'get_cases/' + str(proj_id)
+    if filters['suite_id']:
+        uri += '&suite_id=' + str(filters['suite_id'])
 
     case_list = make_api_get_request(uri)
     case_ids = list()
@@ -91,14 +91,14 @@ def get_all_cases():
 
 
 # Retrieves all test runs (including those insides plans) and compiles the run IDs into a list
-# Runs retrieved will be based on the values set in FILTERS
+# Runs retrieved will be based on the values set in filters
 # RETURNS: a list of run IDs
-def get_all_run_ids():
+def get_all_run_ids(proj_id, filters):
     debug = False
     run_ids = list()
-    run_uri = 'get_runs/' + str(PROJECT_ID)
+    run_uri = 'get_runs/' + str(proj_id)
     run_filters = ''
-    for k, v in FILTERS.items():
+    for k, v in filters.items():
         if v:
             run_filters += '&' + k + '=' + str(v)
     run_uri += run_filters
@@ -116,9 +116,9 @@ def get_all_run_ids():
             run_list = make_api_get_request(run_uri + '&offset=' + str(offset))
 
     # get_plans is limited to 250 entries per response
-    plan_uri = 'get_plans/' + str(PROJECT_ID)
+    plan_uri = 'get_plans/' + str(proj_id)
     plan_filters = ''
-    for k, v in FILTERS.items():
+    for k, v in filters.items():
         if v and (k != 'suite_id'):
             plan_filters += '&' + k + '=' + str(v)
     plan_uri += plan_filters
@@ -144,7 +144,7 @@ def get_all_run_ids():
 
 
 # Retrieves all test runs (including those insides plans) and compiles the run IDs into a list
-# Runs retrieved will be based on the values set in FILTERS
+# Runs retrieved will be based on the values set in filters
 # RETURNS: a list of run IDs
 def get_tested_case_ids(run_id):
     # Retrieve all tests which are not untested (status_id != 3)
@@ -160,13 +160,13 @@ def get_tested_case_ids(run_id):
 #  to remove tested cases from the list of all case IDs.
 # When all run IDs have been exhausted, or all cases have been removed (considered tested), iteration stops
 # RETURNS: a list of case IDs which have not been tested. The list can be empty, indicated all cases were tested
-def find_untested_case_ids():
+def find_untested_case_ids(proj_id, filters):
     debug = False
     # Get case details and case IDs
-    all_case_details, all_case_ids = get_all_cases()
+    all_case_details, all_case_ids = get_all_cases(proj_id, filters)
 
     # Get all test run IDs within plans and runs
-    run_ids = get_all_run_ids()
+    run_ids = get_all_run_ids(proj_id, filters)
     # Get results for each run ID
     for run in run_ids:
         if not all_case_ids:  # all_case_ids is empty, no more checks needed
@@ -186,7 +186,7 @@ def find_untested_case_ids():
 
 
 def main():
-    untested_case_ids = find_untested_case_ids()
+    untested_case_ids = find_untested_case_ids(PROJECT_ID, FILTERS)
     if untested_case_ids:
         print('There are %s cases which have not been tested:' % str(len(untested_case_ids)))
         print(untested_case_ids)
