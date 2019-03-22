@@ -10,6 +10,8 @@ import time
 # 1b. FILTER values should be set to None if not in use
 # 2. Run the script
 # 3. The script will output a list of case IDs which have not been tested based on the filters applied
+#
+# To use this script externally, import find_untested_case_ids and pass a project ID and filters dictionary as args
 ######################################################################################################################
 
 ###########################
@@ -33,6 +35,7 @@ TESTRAIL.password = '<TESTRAIL PASSWORD OR API TOKEN GOES HERE>'
 PROJECT_ID = 1       # Integer ID of target project
 
 # Filters to be applied when using 'get_runs' and 'get_plans'
+# The suite_id value is used for projects which have multiple suites enabled
 # Value should be set to None if filter will not be applied
 # offset is not included here since it is handled elsewhere
 # created_before and created_after are handled in the next code block
