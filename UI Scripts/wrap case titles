@@ -1,0 +1,11 @@
+name: Wrap long test and case titles
+description: Wrap case or test titles in test run and suite views
+author: Gurock Software (https://discuss.gurock.com/t/word-wrap-case-title/2639/8)
+version: 1.0
+includes: ^(suites|runs)/view
+excludes: 
+
+css:
+.grid td {
+    white-space: normal;
+}
