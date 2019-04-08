@@ -1,0 +1,14 @@
+name: Hide Test Case Fields
+description: Hides the Type and Priority fields in all test case templates when editing adding test cases
+author: Gurock Software
+version: 1.0
+includes: ^cases/(add|edit)
+excludes: 
+
+js:
+$(document).ready(
+	function() {
+		document.getElementById('type_id').parentElement.style.display = "none";
+		document.getElementById('priority_id').parentElement.style.display = "none";
+      }
+);
