@@ -1,6 +1,6 @@
 name: Test plan and run statistics customization
 description: Customizes the overall percentage of passed tests, including 'custom_status1' in the calculation of 'Passed'
-author: Jon Reynolds
+author: Nubbuchadnezzar
 version: 1.0
 includes: ^(runs|plans)/view
 excludes: 
