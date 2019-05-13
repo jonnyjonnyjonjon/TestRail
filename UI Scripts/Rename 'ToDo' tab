@@ -1,0 +1,15 @@
+name: Rename ToDo tab
+description: Changes the 'ToDo' tab label
+author: Nubbuchadnezzar
+version: 1.0
+includes: 
+excludes: ^(dashboard|admin)
+
+js:
+$(document).ready(
+	function() {
+		var header_menu = document.getElementsByClassName("header-menu-item");
+		header_menu[2].firstChild.innerHTML= "New Label";
+		//console.log(header_menu);
+      }
+);
